@@ -5,11 +5,6 @@
         public string Name { get; set; }
         public string City { get; set; }
         public double CostPerNight { get; set; }
-        public int StarRating { get; set; }
-
-        public Hotel()
-        {
-
-        }
+        public double StarRating { get; set; }
     }
 }

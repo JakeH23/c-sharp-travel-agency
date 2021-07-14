@@ -1,7 +1,5 @@
-﻿using System;
-using c_sharp_travel_agency;
+﻿using c_sharp_travel_agency;
 using Xunit;
-
 
 namespace TravelAgencyTests
 {
@@ -13,7 +11,6 @@ namespace TravelAgencyTests
             var agency = new Agency();
 
             Assert.NotEmpty(agency.Employees);
-
         }
 
         [Fact]
@@ -22,7 +19,6 @@ namespace TravelAgencyTests
             var agency = new Agency();
 
             Assert.Equal("Tom", agency.Employees[0].FirstName);
-
         }
 
         [Fact]
@@ -31,15 +27,14 @@ namespace TravelAgencyTests
             var agency = new Agency();
 
             Assert.NotEmpty(agency.Hotels);
-
         }
+
         [Fact]
         public void CheckHotelDataIsAsExpected()
         {
             var agency = new Agency();
 
             Assert.Equal("Paris", agency.Hotels[0].City);
-
         }
     }
 }

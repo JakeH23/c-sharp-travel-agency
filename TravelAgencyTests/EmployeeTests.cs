@@ -11,7 +11,9 @@ namespace TravelAgencyTests
         {
             var employee = new Employee();
 
-            Assert.NotEqual(employee.Id, Guid.Empty);
+            employee.Id = Guid.NewGuid();
+
+            Assert.NotEqual(Guid.Empty, employee.Id);
         }
 
         [Fact]

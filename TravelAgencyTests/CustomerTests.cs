@@ -11,7 +11,9 @@ namespace TravelAgencyTests
         {
             var customer = new Customer();
 
-            Assert.NotEqual(customer.Id, Guid.Empty);
+            customer.Id = Guid.NewGuid();
+
+            Assert.NotEqual(Guid.Empty, customer.Id);
         }
 
         [Fact]

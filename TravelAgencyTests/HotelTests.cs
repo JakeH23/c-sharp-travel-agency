@@ -26,7 +26,17 @@ namespace TravelAgencyTests
         }
 
         [Fact]
-        public void CheckIfHotelCostPerNightIsSet()
+        public void CheckIfHotelCostPerNightIsSetWithInteger()
+        {
+            var hotel = new Hotel();
+
+            hotel.CostPerNight = 50;
+
+            Assert.Equal(50, hotel.CostPerNight);
+        }
+
+        [Fact]
+        public void CheckIfHotelCostPerNightIsSetWithDecimal()
         {
             var hotel = new Hotel();
 
@@ -36,13 +46,23 @@ namespace TravelAgencyTests
         }
 
         [Fact]
-        public void CheckIfHotelStarRatingIsSet()
+        public void CheckIfHotelStarRatingIsSetWithInteger()
         {
             var hotel = new Hotel();
 
             hotel.StarRating = 5;
 
             Assert.Equal(5, hotel.StarRating);
+        }
+
+        [Fact]
+        public void CheckIfHotelStarRatingIsSetWithDecimal()
+        {
+            var hotel = new Hotel();
+
+            hotel.StarRating = 4.5;
+
+            Assert.Equal(4.5, hotel.StarRating);
         }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
-
-namespace c_sharp_travel_agency
+﻿namespace c_sharp_travel_agency
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var console = new ConsoleService();
+
+            console.CustomGreeting("jake");
+            console.DisplayOptions();
         }
     }
 }

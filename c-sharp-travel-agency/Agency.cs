@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
@@ -7,9 +6,8 @@ namespace c_sharp_travel_agency
 {
     public class Agency
     {
-
-        public List<Employee> Employees { get; set; }
-        public List<Hotel> Hotels { get; set; }
+        public List<Employee> Employees { get; private set; }
+        public List<Hotel> Hotels { get; private set; }
 
         public Agency()
         {
