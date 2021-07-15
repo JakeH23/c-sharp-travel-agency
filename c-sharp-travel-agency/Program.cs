@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            var console = new ConsoleService();
+            var console = new ConsoleService(new AgencyDataService());
 
             console.CustomGreeting("jake");
             console.DisplayOptions();

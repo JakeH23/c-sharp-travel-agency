@@ -4,6 +4,13 @@ namespace c_sharp_travel_agency
 {
     public class ConsoleService
     {
+        private readonly Agency _agency;
+
+        public ConsoleService(IAgencyData agencyData)
+        {
+            _agency = new Agency(agencyData);
+        }
+
         public void CustomGreeting(string name)
         {
             Console.WriteLine($"Hello, {name}");
@@ -19,32 +26,32 @@ namespace c_sharp_travel_agency
                 Console.Write("Option Chosen: ");
                 var choice = Console.ReadLine();
 
-                var agency = new Agency();
-
-                if (choice == "A")
+                switch (choice)
                 {
-                    Console.WriteLine("Hotels");
-
-                    foreach (var hotel in agency.Hotels)
+                    case "A":
                     {
-                        Console.WriteLine($"{hotel.Name}, {hotel.City}");
-                    }
-                }
-                else if (choice == "B")
-                {
-                    Console.WriteLine("Employee Names");
+                        Console.WriteLine("Hotels");
 
-                    foreach (var employee in agency.Employees)
+                        foreach (var hotel in _agency.Hotels)
+                        {
+                            Console.WriteLine($"{hotel.Name}, {hotel.City}");
+                        }
+                        break;
+                    }
+                    case "B":
                     {
-                        Console.WriteLine($"Name: {employee.FirstName} {employee.Surname}, Id: {employee.Id}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Please provide a valid option");
-                    continue;
-                }
+                        Console.WriteLine("Employee Names");
 
+                        foreach (var employee in _agency.Employees)
+                        {
+                            Console.WriteLine($"Name: {employee.FirstName} {employee.Surname}, Id: {employee.Id}");
+                        }
+                        break;
+                    }
+                    default:
+                        Console.WriteLine("Please provide a valid option");
+                        continue;
+                }
                 break;
             }
         }
