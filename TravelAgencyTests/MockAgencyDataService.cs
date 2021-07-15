@@ -6,16 +6,10 @@ namespace c_sharp_travel_agency
 {
     public class MockAgencyDataService : IAgencyData
     {
-        public List<Employee> GetEmployeeData()
+        public List<T> GetData<T>(InformationType fileName)
         {
-            var employeeDataPath = File.ReadAllText(@"../../../../c-sharp-travel-agency/data/employees.json");
-            return JsonSerializer.Deserialize<List<Employee>>(employeeDataPath);
-        }
-
-        public List<Hotel> GetHotelData()
-        {
-            var hotelDataPath = File.ReadAllText(@"../../../../c-sharp-travel-agency/data/hotels.json");
-            return JsonSerializer.Deserialize<List<Hotel>>(hotelDataPath);
+            var path = File.ReadAllText(@$"../../../../c-sharp-travel-agency/data/{fileName}.json");
+            return JsonSerializer.Deserialize<List<T>>(path);
         }
     }
 }

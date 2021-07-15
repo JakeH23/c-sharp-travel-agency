@@ -13,8 +13,9 @@ namespace TravelAgencyTests
             var agencyData = new Mock<IAgencyData>();
             var mockAgencyDataService = new MockAgencyDataService();
 
-            agencyData.Setup(x => x.GetEmployeeData()).Returns(mockAgencyDataService.GetEmployeeData());
-            agencyData.Setup(x => x.GetHotelData()).Returns(mockAgencyDataService.GetHotelData());
+            agencyData.Setup(x => x.GetData<Employee>(InformationType.Employees)).Returns(mockAgencyDataService.GetData<Employee>(InformationType.Employees));
+            agencyData.Setup(x => x.GetData<Hotel>(InformationType.Hotels)).Returns(mockAgencyDataService.GetData<Hotel>(InformationType.Hotels));
+
             _agency = new Agency(agencyData.Object);
         }
 

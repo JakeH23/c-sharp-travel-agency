@@ -9,8 +9,8 @@ namespace c_sharp_travel_agency
 
         public Agency(IAgencyData agencyData)
         {
-            Employees = agencyData.GetEmployeeData();
-            Hotels = agencyData.GetHotelData();
+            Employees = agencyData.GetData<Employee>(InformationType.Employees);
+            Hotels = agencyData.GetData<Hotel>(InformationType.Hotels);
         }
     }
 }
