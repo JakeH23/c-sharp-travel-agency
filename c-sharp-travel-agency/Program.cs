@@ -6,7 +6,7 @@
         {
             var console = new ConsoleService(new AgencyDataService());
 
-            console.CustomGreeting("jake");
+            console.InitialGreeting();
             console.DisplayOptions();
         }
     }
