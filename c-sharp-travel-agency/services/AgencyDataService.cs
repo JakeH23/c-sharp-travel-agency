@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using c_sharp_travel_agency.enums;
 
-namespace c_sharp_travel_agency
+namespace c_sharp_travel_agency.services
 {
-    public interface IAgencyData
-    {
-        List<T> GetData<T>(InformationType fileName);
-    }
-
     public class AgencyDataService : IAgencyData
     {
         public List<T> GetData<T>(InformationType fileName)

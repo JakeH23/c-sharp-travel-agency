@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace c_sharp_travel_agency
+namespace c_sharp_travel_agency.models
 {
     public class Employee
     {

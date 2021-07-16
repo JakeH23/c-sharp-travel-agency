@@ -1,8 +1,10 @@
-﻿namespace c_sharp_travel_agency
+﻿using c_sharp_travel_agency.services;
+
+namespace c_sharp_travel_agency
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var console = new ConsoleService(new AgencyDataService());
 

@@ -1,15 +1,16 @@
 ﻿using System;
+using c_sharp_travel_agency.models;
 
-namespace c_sharp_travel_agency
+namespace c_sharp_travel_agency.services
 {
     public class ConsoleService
     {
-        private readonly Agency _agency;
-        private string _userName = "";
+        private readonly Agency agency;
+        private string userName = "";
 
         public ConsoleService(IAgencyData agencyData)
         {
-            _agency = new Agency(agencyData);
+            agency = new Agency(agencyData);
         }
 
         public void InitialGreeting()
@@ -18,7 +19,7 @@ namespace c_sharp_travel_agency
             Console.Write("Please may I take your name: ");
 
             var name = Console.ReadLine();
-            _userName = name;
+            userName = name;
             Console.WriteLine($"Thanks, {name}.");
             Console.WriteLine("How can I help you today?");
         }
@@ -36,9 +37,9 @@ namespace c_sharp_travel_agency
                 {
                     case "A":
                         {
-                            Console.WriteLine($"Here is a list of our Hotels for you {_userName}");
+                            Console.WriteLine($"Here is a list of our Hotels for you {userName}");
 
-                            foreach (var hotel in _agency.Hotels)
+                            foreach (var hotel in agency.Hotels)
                             {
                                 Console.WriteLine($"{hotel.Name}, {hotel.City}");
                             }
@@ -47,9 +48,9 @@ namespace c_sharp_travel_agency
                         }
                     case "B":
                         {
-                            Console.WriteLine($"Here is a list of our Employees for you {_userName}");
+                            Console.WriteLine($"Here is a list of our Employees for you {userName}");
 
-                            foreach (var employee in _agency.Employees)
+                            foreach (var employee in agency.Employees)
                             {
                                 Console.WriteLine($"Name: {employee.FirstName} {employee.Surname}, Id: {employee.Id}");
                             }
@@ -64,7 +65,7 @@ namespace c_sharp_travel_agency
             }
         }
 
-        public void FurtherAssistance()
+        private void FurtherAssistance()
         {
             while (true)
             {
@@ -77,7 +78,7 @@ namespace c_sharp_travel_agency
                         DisplayOptions();
                         break;
                     case "N":
-                        Console.WriteLine($"Have a great day {_userName}! Goodbye!");
+                        Console.WriteLine($"Have a great day {userName}! Goodbye!");
                         break;
                     default:
                         continue;

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Text.Json;
-using c_sharp_travel_agency;
+using c_sharp_travel_agency.enums;
+using c_sharp_travel_agency.models;
+using c_sharp_travel_agency.services;
 using Moq;
 using Xunit;
 

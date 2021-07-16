@@ -1,4 +1,4 @@
-﻿using c_sharp_travel_agency;
+﻿using c_sharp_travel_agency.models;
 using Xunit;
 
 namespace TravelAgencyTests
