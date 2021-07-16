@@ -6,4 +6,8 @@
     <RootNamespace>c_sharp_travel_agency</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="13.2.41" />
+  </ItemGroup>
+
 </Project>

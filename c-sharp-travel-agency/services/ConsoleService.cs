@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Abstractions;
 using c_sharp_travel_agency.models;
 
 namespace c_sharp_travel_agency.services
@@ -8,9 +9,9 @@ namespace c_sharp_travel_agency.services
         private readonly Agency agency;
         private string userName = "";
 
-        public ConsoleService(IAgencyData agencyData)
+        public ConsoleService(IAgencyData agencyData, IFile file)
         {
-            agency = new Agency(agencyData);
+            agency = new Agency(agencyData, file);
         }
 
         public void InitialGreeting()

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Abstractions.TestingHelpers;
-using System.Text.Json;
+﻿using System.IO.Abstractions;
 using c_sharp_travel_agency.enums;
 using c_sharp_travel_agency.models;
 using c_sharp_travel_agency.services;
@@ -12,83 +9,41 @@ namespace TravelAgencyTests
 {
     public class AgencyTests
     {
-        private readonly Agency _agency;
-        private readonly List<Employee> _employees = AgencyDataGetterFake<Employee>(InformationType.Employees, GetTestEmployeeData());
-        private readonly List<Hotel> _hotels = AgencyDataGetterFake<Hotel>(InformationType.Hotels, GetTestHotelData());
+        private readonly Agency agency;
 
         public AgencyTests()
         {
+            var mockData = new MockData();
             var agencyData = new Mock<IAgencyData>();
-            agencyData.Setup(x => x.GetData<Employee>(InformationType.Employees)).Returns(_employees);
-            agencyData.Setup(x => x.GetData<Hotel>(InformationType.Hotels)).Returns(_hotels);
+            var file = Mock.Of<IFile>();
+            agencyData.Setup(x => x.GetData<Employee>(InformationType.Employees, file)).Returns(mockData.Employees);
+            agencyData.Setup(x => x.GetData<Hotel>(InformationType.Hotels, file)).Returns(mockData.Hotels);
 
-            _agency = new Agency(agencyData.Object);
+            agency = new Agency(agencyData.Object, file);
         }
 
         [Fact]
-        public void CheckAgencyIsInitializedWithWEmployeeData()
+        public void CheckAgencyIsInitializedWithEmployeeData()
         {
-            Assert.NotEmpty(_agency.Employees);
+            Assert.NotEmpty(agency.Employees);
         }
 
         [Fact]
         public void CheckEmployeeDataIsAsExpected()
         {
-            Assert.Equal("Jake", _agency.Employees[0].FirstName);
+            Assert.Equal("Jake", agency.Employees[0].FirstName);
         }
 
         [Fact]
         public void CheckAgencyIsInitializedWithHotelData()
         {
-            Assert.NotEmpty(_agency.Hotels);
+            Assert.NotEmpty(agency.Hotels);
         }
 
         [Fact]
         public void CheckHotelDataIsAsExpected()
         {
-            Assert.Equal("Manchester", _agency.Hotels[0].City);
-        }
-
-        private static List<T> AgencyDataGetterFake<T>(InformationType fileName, string fakeData)
-        {
-            var mockFileSystem = new MockFileSystem();
-            var mockInputFile = new MockFileData(fakeData);
-
-            mockFileSystem.AddFile($"{fileName}.json", mockInputFile);
-
-            var path = mockFileSystem.File.ReadAllText($"{fileName}.json");
-            return JsonSerializer.Deserialize<List<T>>(path);
-        }
-
-        private static string GetTestEmployeeData()
-        {
-            var employeeList = new List<Employee>
-            {
-                new Employee
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = "Jake",
-                    Surname = "Heaney"
-                }
-            };
-
-            return JsonSerializer.Serialize(employeeList);
-        }
-
-        private static string GetTestHotelData()
-        {
-            var hotelList = new List<Hotel>
-            {
-                new Hotel
-                {
-                    Name = "Hilton",
-                    City = "Manchester",
-                    CostPerNight = 50,
-                    StarRating = 3.5
-                }
-            };
-
-            return JsonSerializer.Serialize(hotelList);
+            Assert.Equal("Manchester", agency.Hotels[0].City);
         }
     }
 }
