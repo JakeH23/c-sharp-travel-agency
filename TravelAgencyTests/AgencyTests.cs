@@ -1,4 +1,6 @@
-﻿using c_sharp_travel_agency;
+﻿using System;
+using System.Collections.Generic;
+using c_sharp_travel_agency;
 using Moq;
 using Xunit;
 
@@ -7,14 +9,14 @@ namespace TravelAgencyTests
     public class AgencyTests
     {
         private readonly Agency _agency;
+        private readonly List<Employee> _employees = GetTestEmployeeData();
+        private readonly List<Hotel> _hotels = GetTestHotelData();
 
         public AgencyTests()
         {
             var agencyData = new Mock<IAgencyData>();
-            var mockAgencyDataService = new MockAgencyDataService();
-
-            agencyData.Setup(x => x.GetData<Employee>(InformationType.Employees)).Returns(mockAgencyDataService.GetData<Employee>(InformationType.Employees));
-            agencyData.Setup(x => x.GetData<Hotel>(InformationType.Hotels)).Returns(mockAgencyDataService.GetData<Hotel>(InformationType.Hotels));
+            agencyData.Setup(x => x.GetData<Employee>(InformationType.Employees)).Returns(_employees);
+            agencyData.Setup(x => x.GetData<Hotel>(InformationType.Hotels)).Returns(_hotels);
 
             _agency = new Agency(agencyData.Object);
         }
@@ -28,7 +30,7 @@ namespace TravelAgencyTests
         [Fact]
         public void CheckEmployeeDataIsAsExpected()
         {
-            Assert.Equal("Tom", _agency.Employees[0].FirstName);
+            Assert.Equal("Jake", _agency.Employees[0].FirstName);
         }
 
         [Fact]
@@ -40,7 +42,34 @@ namespace TravelAgencyTests
         [Fact]
         public void CheckHotelDataIsAsExpected()
         {
-            Assert.Equal("Paris", _agency.Hotels[0].City);
+            Assert.Equal("Manchester", _agency.Hotels[0].City);
+        }
+
+        private static List<Employee> GetTestEmployeeData()
+        {
+            return new List<Employee>
+            {
+                new Employee
+                {
+                    Id = Guid.NewGuid(),
+                    FirstName = "Jake",
+                    Surname = "Heaney"
+                }
+            };
+        }
+
+        private static List<Hotel> GetTestHotelData()
+        {
+            return new List<Hotel>
+            {
+                new Hotel
+                {
+                    Name = "Hilton",
+                    City = "Manchester",
+                    CostPerNight = 50,
+                    StarRating = 3.5
+                }
+            };
         }
     }
 }
