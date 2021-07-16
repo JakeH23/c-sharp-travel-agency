@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
+using System.Text.Json;
 using c_sharp_travel_agency;
 using Moq;
 using Xunit;
@@ -9,8 +11,8 @@ namespace TravelAgencyTests
     public class AgencyTests
     {
         private readonly Agency _agency;
-        private readonly List<Employee> _employees = GetTestEmployeeData();
-        private readonly List<Hotel> _hotels = GetTestHotelData();
+        private readonly List<Employee> _employees = AgencyDataGetterFake<Employee>(InformationType.Employees, GetTestEmployeeData());
+        private readonly List<Hotel> _hotels = AgencyDataGetterFake<Hotel>(InformationType.Hotels, GetTestHotelData());
 
         public AgencyTests()
         {
@@ -45,9 +47,20 @@ namespace TravelAgencyTests
             Assert.Equal("Manchester", _agency.Hotels[0].City);
         }
 
-        private static List<Employee> GetTestEmployeeData()
+        private static List<T> AgencyDataGetterFake<T>(InformationType fileName, string fakeData)
         {
-            return new List<Employee>
+            var mockFileSystem = new MockFileSystem();
+            var mockInputFile = new MockFileData(fakeData);
+
+            mockFileSystem.AddFile($"{fileName}.json", mockInputFile);
+
+            var path = mockFileSystem.File.ReadAllText($"{fileName}.json");
+            return JsonSerializer.Deserialize<List<T>>(path);
+        }
+
+        private static string GetTestEmployeeData()
+        {
+            var employeeList = new List<Employee>
             {
                 new Employee
                 {
@@ -56,11 +69,13 @@ namespace TravelAgencyTests
                     Surname = "Heaney"
                 }
             };
+
+            return JsonSerializer.Serialize(employeeList);
         }
 
-        private static List<Hotel> GetTestHotelData()
+        private static string GetTestHotelData()
         {
-            return new List<Hotel>
+            var hotelList = new List<Hotel>
             {
                 new Hotel
                 {
@@ -70,6 +85,8 @@ namespace TravelAgencyTests
                     StarRating = 3.5
                 }
             };
+
+            return JsonSerializer.Serialize(hotelList);
         }
     }
 }
